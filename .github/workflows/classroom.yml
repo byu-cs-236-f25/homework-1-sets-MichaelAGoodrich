@@ -19,13 +19,14 @@ jobs:
       with:
         timeout: 10
         max-score: 2
-        setup-command: sh config_test.sh "test_union_integration_disjoint"
+        setup-command: sh config_test.sh "test_union_integration_overlap*"
     - name: integration test 2
       id: integration-test-2
       uses: classroom-resources/autograding-python-grader@v1
       with:
         timeout: 10
-        setup-command: sh config_test.sh "test_union_integration_overlap"
+        max-score: 2
+        setup-command: sh config_test.sh "test_intersection_integration_basic*"
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
