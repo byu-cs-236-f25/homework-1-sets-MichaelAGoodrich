@@ -18,7 +18,8 @@ jobs:
       uses: classroom-resources/autograding-python-grader@v1
       with:
         timeout: 10
-        setup-command: sh config_test.sh "test_*_integration_*"
+        max-score: 2
+        setup-command: sh config_test.sh "test_*integration*"
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
