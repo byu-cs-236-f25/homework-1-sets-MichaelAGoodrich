@@ -13,24 +13,18 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    - name: integration test 1
-      id: integration-test-1
-      uses: classroom-resources/autograding-python-grader@v1
+    - name: integration test 3
+      id: integration-test-3
+      uses: classroom-resources/autograding-command-grader@v1
       with:
+        test-name: integration test 3
+        setup-command: ''
+        command: sh config_test.sh "test_union_integration_overlap"
         timeout: 10
         max-score: 2
-        setup-command: sh config_test.sh "test_union_integration_overlap*"
-    - name: integration test 2
-      id: integration-test-2
-      uses: classroom-resources/autograding-python-grader@v1
-      with:
-        timeout: 10
-        max-score: 2
-        setup-command: sh config_test.sh "test_intersection_integration_basic*"
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
-        INTEGRATION-TEST-1_RESULTS: "${{steps.integration-test-1.outputs.result}}"
-        INTEGRATION-TEST-2_RESULTS: "${{steps.integration-test-2.outputs.result}}"
+        INTEGRATION-TEST-3_RESULTS: "${{steps.integration-test-3.outputs.result}}"
       with:
-        runners: integration-test-1,integration-test-2
+        runners: integration-test-3
