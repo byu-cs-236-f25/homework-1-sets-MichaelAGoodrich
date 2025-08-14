@@ -13,13 +13,22 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    - name: test_union_integration_overlap
-      id: test_union_integration_overlap
+    - name: test_union_integration_disjoint
+      id: test_union_integration_disjoint
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: test_union_integration_overlap
+        test-name: test_union_integration_disjoint
         setup-command: ''
-        command: sh config_test.sh "test_union_integration_overlap"
+        command: sh config_test.sh "test_union_integration_disjoint"
+        timeout: 10
+        max-score: 2
+    - name: test_intersection_integration_basic
+      id: test_intersection_integration_basic
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: test_intersection_integration_basic
+        setup-command: ''
+        command: sh config_test.sh "test_intersection_integration_basic"
         timeout: 10
         max-score: 2
     - name: test_union_integration_with_empty
@@ -31,30 +40,69 @@ jobs:
         command: sh config_test.sh "test_union_integration_with_empty"
         timeout: 10
         max-score: 2
-    - name: test_union_integration_disjoint
-      id: test_union_integration_disjoint
+    - name: test_intersection_integration_basic
+      id: test_intersection_integration_basic
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: test_union_integration_disjoint
+        test-name: test_intersection_integration_basic
         setup-command: ''
-        command: sh config_test.sh "test_union_integration_disjoint"
+        command: sh config_test.sh "test_intersection_integration_basic"
         timeout: 10
         max-score: 2
-    - name: st_union_integration_with_empty
-      id: st_union_integration_with_empty
+    - name: test_cartesian_product_integration_ints_and_strings
+      id: test_cartesian_product_integration_ints_and_strings
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: st_union_integration_with_empty
+        test-name: test_cartesian_product_integration_ints_and_strings
         setup-command: ''
-        command: sh config_test.sh "st_union_integration_with_empty"
+        command: sh config_test.sh "test_cartesian_product_integration_ints_and_strings"
+        timeout: 10
+        max-score: 2
+    - name: test_intersection_integration_with_empty
+      id: test_intersection_integration_with_empty
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: test_intersection_integration_with_empty
+        setup-command: ''
+        command: sh config_test.sh "test_intersection_integration_with_empty"
+        timeout: 10
+        max-score: 2
+    - name: test_cartesian_product_integration_ints_and_strings
+      id: test_cartesian_product_integration_ints_and_strings
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: test_cartesian_product_integration_ints_and_strings
+        setup-command: ''
+        command: sh config_test.sh "test_cartesian_product_integration_ints_and_strings"
+        timeout: 10
+        max-score: 2
+    - name: test_cartesian_product_integration_strings_and_bools
+      id: test_cartesian_product_integration_strings_and_bools
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: test_cartesian_product_integration_strings_and_bools
+        setup-command: ''
+        command: sh config_test.sh "test_cartesian_product_integration_strings_and_bools"
+        timeout: 10
+        max-score: 2
+    - name: test_cartesian_product_integration_with_empty
+      id: test_cartesian_product_integration_with_empty
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: test_cartesian_product_integration_with_empty
+        setup-command: ''
+        command: sh config_test.sh "test_cartesian_product_integration_with_empty"
         timeout: 10
         max-score: 2
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
-        TEST_UNION_INTEGRATION_OVERLAP_RESULTS: "${{steps.test_union_integration_overlap.outputs.result}}"
-        TEST_UNION_INTEGRATION_WITH_EMPTY_RESULTS: "${{steps.test_union_integration_with_empty.outputs.result}}"
         TEST_UNION_INTEGRATION_DISJOINT_RESULTS: "${{steps.test_union_integration_disjoint.outputs.result}}"
-        ST_UNION_INTEGRATION_WITH_EMPTY_RESULTS: "${{steps.st_union_integration_with_empty.outputs.result}}"
+        TEST_INTERSECTION_INTEGRATION_BASIC_RESULTS: "${{steps.test_intersection_integration_basic.outputs.result}}"
+        TEST_UNION_INTEGRATION_WITH_EMPTY_RESULTS: "${{steps.test_union_integration_with_empty.outputs.result}}"
+        TEST_CARTESIAN_PRODUCT_INTEGRATION_INTS_AND_STRINGS_RESULTS: "${{steps.test_cartesian_product_integration_ints_and_strings.outputs.result}}"
+        TEST_INTERSECTION_INTEGRATION_WITH_EMPTY_RESULTS: "${{steps.test_intersection_integration_with_empty.outputs.result}}"
+        TEST_CARTESIAN_PRODUCT_INTEGRATION_STRINGS_AND_BOOLS_RESULTS: "${{steps.test_cartesian_product_integration_strings_and_bools.outputs.result}}"
+        TEST_CARTESIAN_PRODUCT_INTEGRATION_WITH_EMPTY_RESULTS: "${{steps.test_cartesian_product_integration_with_empty.outputs.result}}"
       with:
-        runners: test_union_integration_overlap,test_union_integration_with_empty,test_union_integration_disjoint,st_union_integration_with_empty
+        runners: test_union_integration_disjoint,test_intersection_integration_basic,test_union_integration_with_empty,test_intersection_integration_basic,test_cartesian_product_integration_ints_and_strings,test_intersection_integration_with_empty,test_cartesian_product_integration_ints_and_strings,test_cartesian_product_integration_strings_and_bools,test_cartesian_product_integration_with_empty
